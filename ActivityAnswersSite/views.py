@@ -6,3 +6,6 @@ from django.http import JsonResponse
 class Home(View):
     def get(self, request):
         return render(request, 'home.html')
+
+    def post(self, request):
+        pass
