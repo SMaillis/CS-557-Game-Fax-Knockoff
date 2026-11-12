@@ -1,3 +1,4 @@
 Django>=5.2
+# You might get errors when trying to install mysqlclient. My suggestion is asking an AI what dependencies you need to install beside it since it varies.
 mysqlclient>=2.2
 python-dotenv>=1.0
