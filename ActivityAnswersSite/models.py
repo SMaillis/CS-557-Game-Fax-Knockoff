@@ -1,10 +1,6 @@
-import uuid
 from django.db import models
-from django.db.models import UUIDField
-from django.forms import IntegerField
 
 
-# Create your models here.
 #user database
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -22,7 +18,7 @@ class Admin(models.Model):
     admin_level = models.TextField(max_length=30, blank=False, null=False)
 
     def __str__(self):
-        return self.user_id
+        return str(self.user_id)
 
 #regular_user database
 class RegularUser(models.Model):
@@ -30,7 +26,7 @@ class RegularUser(models.Model):
     reputation = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return self.user_id
+        return str(self.user_id)
 
 #game database
 class Game(models.Model):
@@ -38,7 +34,7 @@ class Game(models.Model):
     title = models.TextField(max_length=50, blank=False, null=False)
     platform = models.TextField(max_length=50, blank=False, null=False)
     release_year = models.SmallIntegerField()
-    views = models.ForeignKey(Question, on_delete=models.CASCADE, to_field="views")
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -71,21 +67,21 @@ class Answer(models.Model):
     dislikes = models.IntegerField(default=0, blank=False, null=False)
 
     def __str__(self):
-        return self.answer_id
+        return str(self.answer_id)
 
 #comment database
 class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)
     author_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, blank=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True, blank=True)
     body = models.TextField(max_length=65535, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0, blank=False, null=False)
     dislikes = models.IntegerField(default=0, blank=False, null=False)
 
     def __str__(self):
-        return self.comment_id
+        return str(self.comment_id)
 
 #guide database
 class Guide(models.Model):
@@ -99,4 +95,3 @@ class Guide(models.Model):
 
     def __str__(self):
         return self.title
-
